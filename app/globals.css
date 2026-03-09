@@ -1,129 +1,408 @@
 @import "tailwindcss";
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
+@config "../tailwind.config.ts";
 
-@custom-variant dark (&:is(.dark *));
+/* Optional fallback tokens in case some values are not in tailwind.config.ts yet */
+@theme {
+  --shadow-chart: 0 4px 24px rgba(0, 0, 0, 0.08);
+  --shadow-profile: 0 10px 30px rgba(0, 0, 0, 0.12);
+  --shadow-creditCard: 0 12px 30px rgba(0, 0, 0, 0.18);
+  --shadow-form: 0 4px 20px rgba(0, 0, 0, 0.08);
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
-  --font-mono: var(--font-geist-mono);
-  --color-sidebar-ring: var(--sidebar-ring);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar: var(--sidebar);
-  --color-chart-5: var(--chart-5);
-  --color-chart-4: var(--chart-4);
-  --color-chart-3: var(--chart-3);
-  --color-chart-2: var(--chart-2);
-  --color-chart-1: var(--chart-1);
-  --color-ring: var(--ring);
-  --color-input: var(--input);
-  --color-border: var(--border);
-  --color-destructive: var(--destructive);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-accent: var(--accent);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-muted: var(--muted);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-secondary: var(--secondary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-primary: var(--primary);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-popover: var(--popover);
-  --color-card-foreground: var(--card-foreground);
-  --color-card: var(--card);
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
-  --radius-4xl: calc(var(--radius) * 2.6);
+  --color-gray-25: #fcfcfd;
+  --color-blue-25: #eef4ff;
+  --color-sky-1: #f3fbff;
+  --color-black-1: #1f2937;
+  --color-black-2: #344054;
+  --color-bankGradient: #0179fe;
+
+  --font-ibm-plex-serif: "IBM Plex Serif", serif;
+
+  --background-image-bank-gradient: linear-gradient(135deg, #0179fe 0%, #4893ff 100%);
+  --background-image-gradient-mesh:
+    radial-gradient(circle at 20% 20%, rgba(56, 189, 248, 0.35), transparent 35%),
+    radial-gradient(circle at 80% 30%, rgba(59, 130, 246, 0.30), transparent 35%),
+    radial-gradient(circle at 40% 80%, rgba(14, 165, 233, 0.25), transparent 40%),
+    linear-gradient(135deg, #e0f2fe, #bfdbfe);
 }
 
-:root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.58 0.22 27);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.809 0.105 251.813);
-  --chart-2: oklch(0.623 0.214 259.815);
-  --chart-3: oklch(0.546 0.245 262.881);
-  --chart-4: oklch(0.488 0.243 264.376);
-  --chart-5: oklch(0.424 0.199 265.638);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.87 0.00 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.371 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.809 0.105 251.813);
-  --chart-2: oklch(0.623 0.214 259.815);
-  --chart-3: oklch(0.546 0.245 262.881);
-  --chart-4: oklch(0.488 0.243 264.376);
-  --chart-5: oklch(0.424 0.199 265.638);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+/* Plain custom CSS */
+.glassmorphism {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
 }
 
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
+/* Real v4 custom utilities */
+@utility no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+@utility flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@utility text-10 {
+  font-size: 10px;
+  line-height: 14px;
+}
+
+@utility text-12 {
+  font-size: 12px;
+  line-height: 16px;
+}
+
+@utility text-14 {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+@utility text-16 {
+  font-size: 16px;
+  line-height: 24px;
+}
+
+@utility text-18 {
+  font-size: 18px;
+  line-height: 22px;
+}
+
+@utility text-20 {
+  font-size: 20px;
+  line-height: 24px;
+}
+
+@utility text-24 {
+  font-size: 24px;
+  line-height: 30px;
+}
+
+@utility text-26 {
+  font-size: 26px;
+  line-height: 32px;
+}
+
+@utility text-30 {
+  font-size: 30px;
+  line-height: 38px;
+}
+
+@utility text-36 {
+  font-size: 36px;
+  line-height: 44px;
+}
+
+@utility text14_padding10 {
+  font-size: 14px;
+  line-height: 20px;
+  padding-inline: 1rem;
+  padding-block: 0.625rem;
+  font-weight: 600;
+}
+
+@utility header-2 {
+  font-size: 18px;
+  line-height: 22px;
+  font-weight: 600;
+  color: var(--color-gray-900);
+}
+
+/* Component / semantic classes */
+@layer components {
+  .input-class {
+    @apply text-[16px] placeholder:text-[16px] rounded-lg border border-gray-300 text-gray-900 placeholder:text-gray-500;
   }
-  body {
-    @apply bg-background text-foreground;
+
+  .sheet-content button {
+    @apply focus:ring-0 focus-visible:ring-transparent focus:ring-offset-0 focus-visible:ring-offset-0 focus-visible:outline-none focus-visible:border-none;
   }
-  html {
-    @apply font-sans;
+
+  .home {
+    @apply no-scrollbar flex w-full flex-row max-xl:max-h-screen max-xl:overflow-y-scroll;
+  }
+
+  .home-content {
+    @apply no-scrollbar flex w-full flex-1 flex-col gap-8 px-5 py-7 sm:px-8 lg:py-12 xl:max-h-screen xl:overflow-y-scroll;
+  }
+
+  .home-header {
+    @apply flex flex-col justify-between gap-8;
+  }
+
+  .total-balance {
+    @apply flex w-full items-center gap-4 rounded-xl border border-gray-200 p-4 shadow-chart sm:gap-6 sm:p-6;
+  }
+
+  .total-balance-chart {
+    @apply flex size-full max-w-[100px] items-center sm:max-w-[120px];
+  }
+
+  .total-balance-label {
+    @apply text-14 font-medium text-gray-600;
+  }
+
+  .total-balance-amount {
+    @apply text-24 flex-1 font-semibold text-gray-900 lg:text-30;
+  }
+
+  .recent-transactions {
+    @apply flex w-full flex-col gap-6;
+  }
+
+  .view-all-btn {
+    @apply text-14 rounded-lg border border-gray-300 px-4 py-2.5 font-semibold text-gray-700;
+  }
+
+  .recent-transactions-label {
+    @apply text-20 font-semibold text-gray-900 md:text-24;
+  }
+
+  .recent-transactions-tablist {
+    @apply mb-8 flex w-full flex-nowrap overflow-x-auto;
+  }
+
+  .recent-transactions-tablist::-webkit-scrollbar {
+    width: 3px;
+    height: 3px;
+    border-radius: 2px;
+  }
+
+  .recent-transactions-tablist::-webkit-scrollbar-track {
+    background: #dddddd;
+  }
+
+  .recent-transactions-tablist::-webkit-scrollbar-thumb {
+    background: #5c5c7b;
+    border-radius: 50px;
+  }
+
+  .recent-transactions-tablist::-webkit-scrollbar-thumb:hover {
+    background: #7878a3;
+  }
+
+  .right-sidebar {
+    @apply no-scrollbar hidden h-screen max-h-screen w-[355px] flex-col border-l border-gray-200 xl:flex xl:overflow-y-scroll;
+  }
+
+  .profile-banner {
+    @apply h-[120px] w-full bg-gradient-mesh bg-cover bg-no-repeat;
+  }
+
+  .profile {
+    @apply relative flex px-6 max-xl:justify-center;
+  }
+
+  .profile-img {
+    @apply flex-center absolute -top-8 size-24 rounded-full border-8 border-white bg-gray-100 p-2 shadow-profile;
+  }
+
+  .profile-details {
+    @apply flex flex-col pt-24;
+  }
+
+  .profile-name {
+    @apply text-24 font-semibold text-gray-900;
+  }
+
+  .profile-email {
+    @apply text-16 font-normal text-gray-600;
+  }
+
+  .banks {
+    @apply flex flex-col justify-between gap-8 px-6 py-8;
+  }
+
+  .my-banks {
+    @apply flex h-screen max-h-screen w-full flex-col gap-8 bg-gray-25 p-8 xl:py-12;
+  }
+
+  .transactions {
+    @apply flex max-h-screen w-full flex-col gap-8 overflow-y-scroll bg-gray-25 p-8 xl:py-12;
+  }
+
+  .transactions-header {
+    @apply flex w-full flex-col items-start justify-between gap-8 md:flex-row;
+  }
+
+  .transactions-account {
+    @apply flex flex-col justify-between gap-4 rounded-lg border-y bg-blue-600 px-4 py-5 md:flex-row;
+  }
+
+  .transactions-account-balance {
+    @apply flex-center flex-col gap-2 rounded-md bg-blue-25/20 px-4 py-2 text-white;
+  }
+
+  .header-box {
+    @apply flex flex-col gap-1;
+  }
+
+  .header-box-title {
+    @apply text-24 font-semibold text-gray-900 lg:text-30;
+  }
+
+  .header-box-subtext {
+    @apply text-14 font-normal text-gray-600 lg:text-16;
+  }
+
+  .bank-card {
+    @apply relative flex h-[190px] w-full max-w-[320px] justify-between rounded-[20px] border border-white bg-bank-gradient shadow-creditCard backdrop-blur-[6px];
+  }
+
+  .bank-card_content {
+    @apply relative z-10 flex size-full max-w-[228px] flex-col justify-between rounded-l-[20px] bg-bank-gradient px-5 pb-4 pt-5 text-white;
+  }
+
+  .bank-card_icon {
+    @apply flex size-full flex-1 flex-col items-end justify-between rounded-r-[20px] bg-bank-gradient bg-cover bg-center bg-no-repeat py-5 pr-5;
+  }
+
+  .bank-info {
+    @apply flex gap-[18px] border border-transparent bg-blue-25 p-4 transition-all;
+  }
+
+  .category-badge {
+    @apply flex-center w-fit truncate gap-1 rounded-2xl border-[1.5px] py-[2px] pl-1.5 pr-2;
+  }
+
+  .banktab-item {
+    @apply flex gap-[18px] border-b-2 px-2 py-2 transition-all sm:px-4;
+  }
+
+  .mobilenav-sheet {
+    @apply flex h-[calc(100vh-72px)] flex-col justify-between overflow-y-auto;
+  }
+
+  .mobilenav-sheet_close {
+    @apply flex w-full max-w-60 items-center gap-3 rounded-lg p-4;
+  }
+
+  .plaidlink-primary {
+    @apply text-16 rounded-lg border border-bankGradient bg-bank-gradient font-semibold text-white shadow-form;
+  }
+
+  .plaidlink-ghost {
+    @apply flex cursor-pointer items-center justify-center gap-3 rounded-lg px-3 py-7 hover:bg-white lg:justify-start;
+  }
+
+  .plaidlink-default {
+    @apply flex cursor-pointer flex-row gap-3 rounded-lg !bg-transparent !justify-start;
+  }
+
+  .auth-asset {
+    @apply sticky top-0 flex h-screen w-full items-center justify-end bg-sky-1 max-lg:hidden;
+  }
+
+  .auth-form {
+    @apply flex min-h-screen w-full max-w-[420px] flex-col justify-center gap-5 py-10 md:gap-8;
+  }
+
+  .form-item {
+    @apply flex flex-col gap-1.5;
+  }
+
+  .form-label {
+    @apply text-14 w-full max-w-[280px] font-medium text-gray-700;
+  }
+
+  .form-message {
+    @apply text-12 text-red-500;
+  }
+
+  .form-btn {
+    @apply text-16 rounded-lg border border-bankGradient bg-bank-gradient font-semibold text-white shadow-form;
+  }
+
+  .form-link {
+    @apply text-14 cursor-pointer font-medium text-bankGradient;
+  }
+
+  .payment-transfer {
+    @apply no-scrollbar flex flex-col overflow-y-scroll bg-gray-25 p-8 md:max-h-screen xl:py-12;
+  }
+
+  .payment-transfer_btn {
+    @apply text-14 w-full bg-bank-gradient font-semibold text-white shadow-form;
+  }
+
+  .payment-transfer_form-item {
+    @apply flex w-full max-w-[850px] flex-col gap-3 md:flex-row lg:gap-8;
+  }
+
+  .payment-transfer_form-content {
+    @apply flex w-full max-w-[280px] flex-col gap-2;
+  }
+
+  .payment-transfer_form-details {
+    @apply flex flex-col gap-1 border-t border-gray-200 pb-5 pt-6;
+  }
+
+  .payment-transfer_btn-box {
+    @apply mt-5 flex w-full max-w-[850px] gap-3 border-gray-200 py-5;
+  }
+
+  .root-layout {
+    @apply flex h-16 items-center justify-between p-5 shadow-creditCard sm:p-8 md:hidden;
+  }
+
+  .bank-info_content {
+    @apply flex flex-1 items-center justify-between gap-2 overflow-hidden;
+  }
+
+  .footer {
+    @apply flex cursor-pointer items-center justify-between gap-2 py-6;
+  }
+
+  .footer_name,
+  .footer_name-mobile {
+    @apply flex size-10 items-center justify-center rounded-full bg-gray-200;
+  }
+
+  .footer_name {
+    @apply max-xl:hidden;
+  }
+
+  .footer_email,
+  .footer_email-mobile {
+    @apply flex flex-1 flex-col justify-center;
+  }
+
+  .footer_email {
+    @apply max-xl:hidden;
+  }
+
+  .footer_image {
+    @apply relative size-5 max-xl:flex max-xl:w-full max-xl:items-center max-xl:justify-center;
+  }
+
+  .footer_image-mobile {
+    @apply relative size-5;
+  }
+
+  .sidebar {
+    @apply sticky left-0 top-0 hidden h-screen w-fit flex-col justify-between border-r border-gray-200 bg-white pt-8 text-white sm:p-4 max-md:hidden xl:p-6 2xl:w-[355px];
+  }
+
+  .sidebar-logo {
+    @apply font-ibm-plex-serif text-[26px] font-bold text-black-1 max-xl:hidden 2xl:text-[26px];
+  }
+
+  .sidebar-link {
+    @apply flex items-center justify-center gap-3 rounded-lg py-1 md:p-3 xl:justify-start 2xl:p-4;
+  }
+
+  .sidebar-label {
+    @apply text-16 font-semibold text-black-2 max-xl:hidden;
   }
 }
